@@ -27,4 +27,6 @@ variable "vpc_azs" {
 variable "vpc_cdr" {
   type = string
 }
-
+variable "allowed_ips" {
+  type      = list(string)
+}

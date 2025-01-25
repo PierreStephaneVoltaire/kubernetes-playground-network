@@ -11,3 +11,16 @@ terraform {
 output "domain_acm_certificate_arn" {
   value = aws_acm_certificate.wildcard.arn
 }
+
+output "vpc_id" {
+  value = module.vpc.vpc_id
+}
+output "private_subnets" {
+  value = module.vpc.private_subnets
+}
+output "public_subnets" {
+  value = module.vpc.public_subnets
+}
+output "allowed_ips" {
+  value = var.allowed_ips
+}
