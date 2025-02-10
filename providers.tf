@@ -4,3 +4,10 @@ provider "aws" {
     tags = var.tags
   }
 }
+
+provider "azurerm" {
+  features {}
+  subscription_id = var.subscription_id
+}
+
+
