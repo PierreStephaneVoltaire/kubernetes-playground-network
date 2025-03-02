@@ -9,12 +9,9 @@ This module creates the necessary networking resources in both AWS and Azure for
 - **AWS Resources**:
     - VPC
     - Subnets (public and private)
-    - NAT Gateways
+    - NAT Gateways (replaced Nat with fck-nat to reduce cost)
     - Route Tables
 
-- **Azure Resources**:
-    - Virtual Network (VNet)
-    - Subnets
 
 The networking resources created here will be consumed by EKS and AKS modules for Kubernetes cluster deployments.
 
@@ -22,5 +19,4 @@ The networking resources created here will be consumed by EKS and AKS modules fo
 
 - Terraform v1.0+
 - AWS CLI (for AWS resources)
-- Azure CLI (for Azure resources)
 - Appropriate AWS and Azure credentials configured

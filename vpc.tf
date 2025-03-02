@@ -7,11 +7,12 @@ module "vpc" {
   private_subnets        = concat(var.vpc_private_subnet_cidr, var.vpc_private_secondary_subnet_cidr)
   secondary_cidr_blocks  = var.vpc_private_secondary_subnet_cidr
   public_subnets         = var.vpc_public_subnet_cidr
-  enable_nat_gateway     = true
-  single_nat_gateway     = true
-  one_nat_gateway_per_az = false
+  enable_nat_gateway     = false
   public_subnet_tags = {
     "kubernetes.io/subnets/public":var.app_name
+  }
+  private_subnet_tags = {
+    "karpenter.sh/discovery": "${var.app_name}-cluster"
   }
 }
 
@@ -40,33 +41,7 @@ module "vpc_endpoints" {
       service             = "s3"
       private_dns_enabled = true
       service_type    = "Gateway"
-    },
-    ecr_api = {
-      service             = "ecr.api"
-      private_dns_enabled = true
-      subnet_ids          = slice(module.vpc.private_subnets,3,6)
-    },
-    ecr_dkr = {
-      service             = "ecr.dkr"
-      private_dns_enabled = true
-      subnet_ids          =slice(module.vpc.private_subnets,3,6)
-    },
-
-    logs = {
-      service             = "logs"
-      private_dns_enabled = true
-      subnet_ids          = slice(module.vpc.private_subnets,0,3)
-    },
-    cloudtrail = {
-      service             = "cloudtrail"
-      private_dns_enabled = true
-      subnet_ids          = slice(module.vpc.private_subnets,0,3)
-    },
-    ebs = {
-      service             = "ebs"
-      private_dns_enabled = true
-      subnet_ids          = slice(module.vpc.private_subnets,0,3)
-    },
+    }
   }
 
 }
